@@ -43,7 +43,7 @@ class ProductController extends Controller
         $product = Product::create([
             'Name' => $request->name,
             'Color' => $request->color,
-            'Code' => $request->code,
+            'Code' => random_int(1000000, 9999999),
             'category_id' => $request->category_id,
             'Description' => $request->description,
         ]);
