@@ -41,10 +41,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $image = $request->file('image');
-        $imageExt = $image->getClientOriginalExtension();
-        $imageName = $image->getClientOriginalName() . "." . now() . "." . $imageExt;
-
-        $image->move(public_path('images'), $imageName);
 
         Product::create([
             'Name' => $request->name,
@@ -52,7 +48,7 @@ class ProductController extends Controller
             'Code' => random_int(1000000, 9999999),
             'category_id' => $request->category_id,
             'Description' => $request->description,
-            'Image' => $imageName
+            'Image' => upload_image($image)
         ]);
 
         return redirect()->back()->with('success', 'Product successfully stored.');
@@ -105,11 +101,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $image = $request->file('image');
-            $imageExt = $image->getClientOriginalExtension();
-            $imageName = $image->getClientOriginalName() . "." . now() . "." . $imageExt;
-            $image->move(public_path('images'), $imageName);
-            $product->Image = $imageName;
+            $product->Image = upload_image($request->image); 
             $product->save();
         }
 
