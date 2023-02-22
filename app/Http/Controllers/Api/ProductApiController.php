@@ -42,6 +42,7 @@ class ProductApiController extends Controller
             'Color' => 'required|string',
             'category_id' => 'required|integer',
             'Description' => 'required|string',
+            'Image' => 'required|string',
         ]);
 
         return Product::create($request->all());
