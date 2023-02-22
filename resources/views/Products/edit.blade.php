@@ -1,29 +1,29 @@
-
 @extends('layouts.master')
 
 @section('content')
-
     <div class="d-flex justify-content-between mb-4">
         <h3>Edit Product</h3>
         <a class="btn btn-success btn-sm" href="{{ route('products.index') }}">List Products</a>
     </div>
 
-    @if(session()->has('success'))
-        <label class="alert alert-success w-100">{{session('success')}}</label>
+    @if (session()->has('success'))
+        <label class="alert alert-success w-100">{{ session('success') }}</label>
     @elseif(session()->has('error'))
-        <label class="alert alert-danger w-100">{{session('error')}}</label>
+        <label class="alert alert-danger w-100">{{ session('error') }}</label>
     @endif
 
-    <form action="{{ route('products.update', $product->id) }}" method="POST">
+    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" placeholder="product name" value="{{ $product->Name }}">
+            <input class="form-control" name="name" type="text" value="{{ $product->Name }}"
+                placeholder="product name">
         </div>
         <div class="form-group">
             <label>Color</label>
-            <input type="text" name="color" class="form-control" placeholder="product color" value="{{ $product->Color }}">
+            <input class="form-control" name="color" type="text" value="{{ $product->Color }}"
+                placeholder="product color">
         </div>
         <div class="row">
             <div class="col-12">
@@ -31,22 +31,28 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Code</label>
-                            <input type="number" name="code" class="form-control" placeholder="product code" value="{{ $product->Code }}">
+                            <input class="form-control" name="code" type="number" value="{{ $product->Code }}"
+                                placeholder="product code">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>category id</label>
-                            <input type="text" name="category_id" class="form-control" placeholder="product category_id" value="{{ $product->category_id }}">
+                            <input class="form-control" name="category_id" type="text"
+                                value="{{ $product->category_id }}" placeholder="product category_id">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" rows="5" class="form-control">{{ $product->Description }}</textarea>
+            <input class="form-control @error('photo') is-invalid @enderror" name="image" type="file"
+                value="{{ $product->Image }}">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="description" rows="5">{{ $product->Description }}</textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 @endsection
