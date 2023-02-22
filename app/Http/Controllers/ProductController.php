@@ -42,7 +42,7 @@ class ProductController extends Controller
     {
         $image = $request->file('image');
         $imageExt = $image->getClientOriginalExtension();
-        $imageName = $image->getClientOriginalName() . "." . now() .$imageExt ;
+        $imageName = $image->getClientOriginalName() . "." . now() . "." . $imageExt;
 
         $image->move(public_path('images'), $imageName);
 
@@ -95,20 +95,24 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        $image = $request->file('image');
-        $imageExt = $image->getClientOriginalExtension();
-        $imageName = $image->getClientOriginalName() . "." . now() .$imageExt ;
-
-        $image->move(public_path('images'), $imageName);
-
         $product->update([
             'Name' => $request->name,
             'Color' => $request->color,
             'Code' => $request->code,
             'category_id' => $request->category_id,
             'Description' => $request->description,
-            'Image' => $imageName
+            'Image' => $product->Image
         ]);
+
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $imageExt = $image->getClientOriginalExtension();
+            $imageName = $image->getClientOriginalName() . "." . now() . "." . $imageExt;
+            $image->move(public_path('images'), $imageName);
+            $product->Image = $imageName;
+            $product->save();
+        }
+
 
         return redirect()->back()->with('success', 'Product successfully updated.');
     }

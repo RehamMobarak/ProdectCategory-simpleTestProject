@@ -46,8 +46,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input class="form-control @error('photo') is-invalid @enderror" name="image" type="file"
-                value="{{ $product->Image }}">
+            <input class="form-control @error('photo') is-invalid @enderror" name="image" type="file">
         </div>
         <div class="form-group">
             <label>Description</label>
