@@ -12,12 +12,12 @@
         <label class="alert alert-danger w-100">{{ session('error') }}</label>
     @endif
 
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
 
         @csrf
         <div class="form-group">
             <label>Name</label>
-            <input type="text" name="name" class="form-control" placeholder="product name">
+            <input class="form-control" name="name" type="text" placeholder="product name">
         </div>
 
         <div class="row">
@@ -26,14 +26,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Color</label>
-                            <input type="text" name="color" class="form-control" placeholder="product color">
+                            <input class="form-control" name="color" type="text" placeholder="product color">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Category</label>
 
-                            <select name="category_id" class="form-control">
+                            <select class="form-control" name="category_id">
                                 <option value=""> -- Select One --</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->Name }}</option>
@@ -45,9 +45,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" rows="5" placeholder="product description" class="form-control"></textarea>
+            <input class="form-control @error('photo') is-invalid @enderror" name="image" type="file" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="description" rows="5" placeholder="product description"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 @endsection

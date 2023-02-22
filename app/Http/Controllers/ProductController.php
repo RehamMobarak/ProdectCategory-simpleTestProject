@@ -41,7 +41,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $image = $request->file('image');
-        $imageName = $image->getClientOriginalName() . "." .now(). $image->getClientOriginalExtension();
+        $imageExt = $image->getClientOriginalExtension();
+        $imageName = $image->getClientOriginalName() . "." . now() .$imageExt ;
 
         $image->move(public_path('images'), $imageName);
 
