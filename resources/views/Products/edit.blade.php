@@ -5,6 +5,7 @@
         <h3>Edit Product</h3>
         <a class="btn btn-success btn-sm" href="{{ route('products.index') }}">List Products</a>
     </div>
+    <img class="img-thumbnail" src="{{ URL::to('/') }}/images/{{ $product->Image }}" width="75">
 
     @if (session()->has('success'))
         <label class="alert alert-success w-100">{{ session('success') }}</label>
