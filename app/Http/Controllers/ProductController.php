@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('Products.create',compact('categories'));
+        return view('Products.create', compact('categories'));
     }
 
     /**
@@ -40,12 +40,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create([
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName() . "." .now(). $image->getClientOriginalExtension();
+
+        $image->move(public_path('images'), $imageName);
+
+        Product::create([
             'Name' => $request->name,
             'Color' => $request->color,
             'Code' => random_int(1000000, 9999999),
             'category_id' => $request->category_id,
             'Description' => $request->description,
+            'Image' => $imageName
         ]);
 
         return redirect()->back()->with('success', 'Product successfully stored.');
