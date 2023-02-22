@@ -22,7 +22,8 @@ class ProductFactory extends Factory
             'Code' => $this->faker->unique()->randomNumber($nbDigits = 7, $strict = false),
             'Color' => $this->faker->colorName(),
             'category_id' => $this->faker->numberBetween(1, 20),
-            'Description' => $this->faker->text()
+            'Description' => $this->faker->text(),
+            'Image' => 'productDummy.png'
 
         ];
     }
