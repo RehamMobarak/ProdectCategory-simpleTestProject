@@ -21,7 +21,6 @@ Route::get('/', function () {
 
 //Product
 Route::resource('products', ProductController::class);
-// Route::get('/', [ProductController::class, 'index'])->name('index');
 
 //Category
 Route::resource('categories', CategoryController::class);

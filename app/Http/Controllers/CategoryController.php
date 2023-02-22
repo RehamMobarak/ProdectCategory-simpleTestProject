@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::Paginate(5);
+
+        return view('Categories.index', compact('categories'));
     }
 
     /**
@@ -23,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Categories.create');
     }
 
     /**
@@ -34,7 +37,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'Name' => $request->name,
+            'Description' => $request->description
+        ]);
+
+        return redirect()->back()->with('success', 'Category successfully stored.');
     }
 
     /**
