@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -101,7 +107,7 @@ class ProductController extends Controller
         ]);
 
         if ($request->file('image')) {
-            $product->Image = upload_image($request->image); 
+            $product->Image = upload_image($request->image);
             $product->save();
         }
 
