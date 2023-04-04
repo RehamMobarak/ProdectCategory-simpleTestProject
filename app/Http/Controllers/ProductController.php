@@ -22,7 +22,11 @@ class ProductController extends Controller
     public function index()
     {
         //show all
-        $products = Product::Paginate(5);
+        $products = Product::latest()->paginate(5);
+
+        if (request('search')) {
+            $products = Product::latest()->filter()->paginate(5);
+        }
 
         return view('Products.index', compact('products'));
     }

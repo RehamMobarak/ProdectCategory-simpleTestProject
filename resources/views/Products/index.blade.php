@@ -2,7 +2,14 @@
 
 @section('content')
     <div class="d-flex justify-content-between mb-4">
-        <h3>Products List</h3>
+        <a href="{{ route('products.index') }}">
+            <h3>Products List</h3>
+        </a>
+
+        <form action="" method="get">
+            <input name="search" type="text">
+        </form>
+        
         <a class="btn btn-success btn-sm" href="{{ route('products.create') }}">Create New</a>
     </div>
 
@@ -31,7 +38,8 @@
                     <td>{{ $product->Name }}</td>
                     <td>{{ $product->Code }}</td>
                     <td>{{ $product->Color }}</td>
-                    <td><img class="img-thumbnail" src="{{ URL::to('/') }}/images/{{ $product->Image }}" width="75"></td>
+                    <td><img class="img-thumbnail" src="{{ URL::to('/') }}/images/{{ $product->Image }}" width="75">
+                    </td>
                     <td>
                         <a class="btn btn-success btn-sm" href="{{ route('products.edit', $product->id) }}">Edit</a>
                         <a class="btn btn-info btn-sm" href="{{ route('products.show', $product->id) }}">Show</a>
@@ -48,6 +56,6 @@
     </table>
 
     <div class="d-flex justify-content-between">
-        {!! $products->links() !!}
+        {{ $products->links() }}
     </div>
 @endsection
